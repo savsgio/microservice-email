@@ -1,0 +1,20 @@
+version: '3.4'
+services:
+  microservice_email:
+    build:
+      context: ../
+      dockerfile: environment/Dockerfile
+    container_name: microservice_email
+    hostname: microservice_email
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../:/code
+    environment:
+      - PORT=8000
+    links:
+      - rabbitmq:rabbitmq_server
+
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq_server

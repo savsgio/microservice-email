@@ -1,0 +1,12 @@
+smtp:
+  host: <host>
+  port: <port>
+  user: <user>
+  password: <password>
+
+rabbitmq:
+  host: <host>
+  queue_name: <queue name>
+  exchange_name: <exchange_name>
+  exchange_kind: <exchange_kind>
+  declare: false  # Create queue and exchange in RabbitMQ automatically (true/false)
