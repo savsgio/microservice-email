@@ -21,7 +21,7 @@ Microservice for send emails
 
 ## General
 
-Optimize goland code:
+Optimize Go code:
 ```bash
 make simplify
 ```
