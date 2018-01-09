@@ -134,14 +134,8 @@ func (rmq *RabbitMQ) StartConsumer() {
 	)
 	utils.CheckException(err)
 
-	forever := make(chan bool)
-
-	go func() {
-		for d := range msgs {
-			callback(d)
-		}
-	}()
-
 	logger.Info("[*] Waiting for messages. To exit press CTRL+C")
-	<-forever
+	for d := range msgs {
+		callback(d)
+	}
 }
