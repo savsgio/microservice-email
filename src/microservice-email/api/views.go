@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/valyala/fasthttp"
 	"microservice-email/lib"
-	"microservice-email/queue"
 )
 
 const HttpErrorMsg = "{\"Error\": \"%v\"}"
@@ -23,7 +22,7 @@ func validEmailParams(m *lib.Email) (string, bool) {
 	return "", false
 }
 
-func Index(ctx *fasthttp.RequestCtx) {
+func V1(ctx *fasthttp.RequestCtx) {
 	ctx.SetContentType("application/json")
 
 	body := ctx.PostBody()
@@ -43,12 +42,14 @@ func Index(ctx *fasthttp.RequestCtx) {
 	}
 
 	rabbitmqConf := lib.Conf.RabbitMQ
-	err = queue.Send(
+	rmq := lib.NewRabbitMQ(
 		rabbitmqConf.Host,
 		rabbitmqConf.QueueName,
 		rabbitmqConf.ExchangeName,
 		rabbitmqConf.ExchangeKind,
-		body)
+		false,
+	)
+	rmq.Send(body)
 
 	if err != nil {
 		fmt.Fprintf(ctx, HttpErrorMsg, err)

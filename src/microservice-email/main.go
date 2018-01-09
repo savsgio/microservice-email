@@ -8,26 +8,25 @@ import (
 	"github.com/valyala/fasthttp"
 	"microservice-email/api"
 	"microservice-email/lib"
-	"microservice-email/queue"
 	"os"
 )
 
 var PORT = os.Getenv("PORT")
 
 func init() {
-	logLevel := flag.String("log-level", logger.WARNING, "Log level")
+	var logLevel string
 
-	// Parse only in main.go
+	flag.StringVar(&logLevel, "log-level", logger.WARNING, "Log level")
+	flag.StringVar(&lib.ConfigFilePath, "config-file", "/etc/microservice-email.yml", "Configuration file path")
 	flag.Parse()
-	// ---------------------
 
-	logger.Setup(*logLevel)
+	logger.Setup(logLevel)
 	lib.ReadConfig()
 }
 
-func startApi() {
+func StartApi() {
 	router := fasthttprouter.New()
-	router.POST("/", api.Index)
+	router.POST("/api/v1/", api.V1)
 
 	server := &fasthttp.Server{
 		Name:    "MicroService Email",
@@ -41,13 +40,14 @@ func startApi() {
 func main() {
 	// RabbitMQ Consumer
 	rabbitmqConf := lib.Conf.RabbitMQ
-	go queue.StartConsumer(
+	go lib.NewRabbitMQ(
 		rabbitmqConf.Host,
 		rabbitmqConf.QueueName,
 		rabbitmqConf.ExchangeName,
 		rabbitmqConf.ExchangeKind,
-		rabbitmqConf.Declare)
+		rabbitmqConf.Declare,
+	).StartConsumer()
 
 	// Web API
-	startApi()
+	StartApi()
 }

@@ -1,7 +1,6 @@
 package lib
 
 import (
-	"flag"
 	"github.com/go-yaml/yaml"
 	"io/ioutil"
 	"microservice-email/utils"
@@ -24,14 +23,10 @@ type Config struct {
 }
 
 var Conf *Config
-var configFile string
-
-func init() {
-	flag.StringVar(&configFile, "config-file", "/etc/microservice-email.yml", "Configuration file path")
-}
+var ConfigFilePath string
 
 func ReadConfig() {
-	fileData, err := ioutil.ReadFile(configFile)
+	fileData, err := ioutil.ReadFile(ConfigFilePath)
 	utils.CheckException(err)
 
 	Conf = &Config{}
