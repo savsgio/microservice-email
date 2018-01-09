@@ -50,5 +50,11 @@ func Index(ctx *fasthttp.RequestCtx) {
 		rabbitmqConf.ExchangeKind,
 		body)
 
-	fmt.Fprint(ctx, HttpSuccessMsg)
+	if err != nil {
+		fmt.Fprintf(ctx, HttpErrorMsg, err)
+		ctx.SetStatusCode(500)
+
+	} else {
+		fmt.Fprint(ctx, HttpSuccessMsg)
+	}
 }
