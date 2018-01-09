@@ -53,7 +53,6 @@ func Index(ctx *fasthttp.RequestCtx) {
 	if err != nil {
 		fmt.Fprintf(ctx, HttpErrorMsg, err)
 		ctx.SetStatusCode(500)
-
 	} else {
 		fmt.Fprint(ctx, HttpSuccessMsg)
 	}
