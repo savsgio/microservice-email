@@ -1,8 +1,6 @@
 Microservice for send emails
 ============================
 
-***Still not considered a stable version...***
-
 #### System Dependencies
 
 - [Go v1.9.2](https://golang.org/dl/)
