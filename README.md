@@ -58,7 +58,7 @@ Command line arguments:
 #### Dependencies
 
 - [Docker](https://www.docker.com/)
-- [Docker compose](https://docs.docker.com/compose/) *Recommended to install with `pip3` (python3)*
+- [Docker-compose](https://docs.docker.com/compose/) *Recommended to install with `pip3` (python3)*
 
 Run:
 ```bash
