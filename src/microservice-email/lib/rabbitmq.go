@@ -85,8 +85,8 @@ func (rmq *RabbitMQ) BindQueue() {
 }
 
 func (rmq *RabbitMQ) Send(msg []byte) error {
-	defer rmq.Connection.Close()
 	defer rmq.Channel.Close()
+	defer rmq.Connection.Close()
 
 	err := rmq.Channel.Publish(
 		rmq.ExchangeName,
@@ -120,8 +120,8 @@ func callback(d amqp.Delivery) {
 }
 
 func (rmq *RabbitMQ) StartConsumer() {
-	defer rmq.Connection.Close()
 	defer rmq.Channel.Close()
+	defer rmq.Connection.Close()
 
 	msgs, err := rmq.Channel.Consume(
 		rmq.QueueName,
