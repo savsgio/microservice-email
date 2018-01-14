@@ -49,7 +49,7 @@ func V1(ctx *fasthttp.RequestCtx) {
 		rabbitmqConf.ExchangeKind,
 		false,
 	)
-	rmq.Send(body)
+	err = rmq.Send(body)
 
 	if err != nil {
 		fmt.Fprintf(ctx, HttpErrorMsg, err)
