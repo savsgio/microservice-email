@@ -17,7 +17,8 @@ Microservice for send emails
 - [go-logger](https://github.com/savsgio/go-logger)
 
 
-## General
+General
+-------
 
 Optimize Go code:
 ```bash
@@ -36,24 +37,57 @@ Copy `etc/config.yml` to `etc/config-dev.yml` *(this file not tracked in Git)*, 
 make run
 ```
 
-***Note:*** If you want to use with Docker, make sure you have this rabbitmq host in `etc/config-dev.yml`:
+***Note:*** If you want to use with Docker, make sure you have this rabbitmq configuration in `etc/config-dev.yml`:
 ```yaml
 ...
 rabbitmq:
   host: rabbitmq_server
+  user: guest
+  password: guest
+  ...
 ...
 ```
 
-Install:
+Installation
+------------
+
 ```bash
 make install
 ```
 
-Command line arguments:
+After, you can exec with
+```bash
+microservice-email
+```
+
+Optional arguments:
 - `-log-level`: Level of log that you want to show (default: *info*)
 - `-config-file`:  Path of configuration file (default: */etc/microservice-email.yml*)
 
-#### Run in Docker
+#### API:
+
+This API only accept ***POST*** http request with below parameters in body:
+
+Explanation (all are required):
+
+- `to`: Email of destiny (only 1 email)
+- `subject`: Subject of email
+- `content_type`: Content type of email that it can be ***text/plain*** or ***text/html***
+- `body`: Content of email
+
+Example of request to send a email:
+
+```json
+{
+  "to": "example@example.com", 
+  "subject": "Hi, my friend", 
+  "content_type": "text/html", 
+  "body": "<h1>This is the body of my Email in HTML format</h1>"
+}
+```
+
+Docker
+------
 
 #### Dependencies
 
@@ -65,5 +99,7 @@ Run:
 make docker_run
 ```
 
-#### Others
+Others
+------
+
 **Feel free to contribute it or fork me...** :wink:
