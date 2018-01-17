@@ -15,7 +15,7 @@ SRC_DIR = ./src/$(PROJECT_NAME)
 SRC_PKGS = $$(go list $(SRC_DIR)/...)
 SRC_FILES = $(shell find . -type f -name '*.go' -path "$(SRC_DIR)/*")
 
-VERSION := 1.0.1
+VERSION := 1.0.2
 BUILD := `git rev-parse HEAD`
 
 # Use linker flags to provide version/build settings to the binary
