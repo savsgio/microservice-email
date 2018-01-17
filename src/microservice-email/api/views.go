@@ -5,13 +5,14 @@ import (
 	"fmt"
 	"github.com/valyala/fasthttp"
 	"microservice-email/lib"
+	"strings"
 )
 
 const HttpErrorMsg = "{\"Error\": \"%v\"}"
 const HttpSuccessMsg = "{\"Status\": \"OK\"}"
 
 func validEmailParams(m *lib.Email) (string, bool) {
-	if len(m.To) == 0 {
+	if len(m.To) == 0 || !strings.Contains(m.To, "@") {
 		return "Invalid 'to' value...", true
 	} else if len(m.Subject) == 0 {
 		return "Invalid 'subject' value...", true
