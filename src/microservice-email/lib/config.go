@@ -15,6 +15,8 @@ type Config struct {
 	}
 	RabbitMQ struct {
 		Host         string
+		User         string
+		Password     string
 		QueueName    string `yaml:"queue_name"`
 		ExchangeName string `yaml:"exchange_name"`
 		ExchangeKind string `yaml:"exchange_kind"`

@@ -44,6 +44,8 @@ func V1(ctx *fasthttp.RequestCtx) {
 	rabbitmqConf := lib.Conf.RabbitMQ
 	rmq := lib.NewRabbitMQ(
 		rabbitmqConf.Host,
+		rabbitmqConf.User,
+		rabbitmqConf.Password,
 		rabbitmqConf.QueueName,
 		rabbitmqConf.ExchangeName,
 		rabbitmqConf.ExchangeKind,

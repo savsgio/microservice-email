@@ -5,7 +5,9 @@ smtp:
   password: <password>
 
 rabbitmq:
-  host: <host>
+  host: <host>  # With or without port
+  user: <user>
+  password: <password>
   queue_name: <queue name>
   exchange_name: <exchange_name>
   exchange_kind: <exchange_kind>

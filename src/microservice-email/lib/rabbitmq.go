@@ -20,11 +20,11 @@ type RabbitMQ struct {
 	Channel      *amqp.Channel
 }
 
-func NewRabbitMQ(host string, queueName string, exchangeName string, exchangeKind string, declare bool) *RabbitMQ {
+func NewRabbitMQ(host string, user string, password string, queueName string, exchangeName string, exchangeKind string, declare bool) *RabbitMQ {
 	var err error
 	rmq := &RabbitMQ{Host: host, QueueName: queueName, ExchangeName: exchangeName, ExchangeKind: exchangeKind, Declare: declare}
 
-	rmq.Connection, err = amqp.Dial(fmt.Sprintf("amqp://%s/", host))
+	rmq.Connection, err = amqp.Dial(fmt.Sprintf("amqp://%s:%s@%s/", user, password, host))
 	utils.CheckException(err)
 
 	rmq.Channel, err = rmq.Connection.Channel()

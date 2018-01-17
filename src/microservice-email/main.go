@@ -42,6 +42,8 @@ func main() {
 	rabbitmqConf := lib.Conf.RabbitMQ
 	go lib.NewRabbitMQ(
 		rabbitmqConf.Host,
+		rabbitmqConf.User,
+		rabbitmqConf.Password,
 		rabbitmqConf.QueueName,
 		rabbitmqConf.ExchangeName,
 		rabbitmqConf.ExchangeKind,
