@@ -37,7 +37,7 @@ func New(port string) *Api {
 }
 
 func (api *Api) setRoutesV1() {
-	api.Router.POST("/api/v1/", v1.Middleware(v1.SendEmail))
+	api.Router.POST("/api/v1/", v1.Middleware(v1.SendEmailView))
 }
 
 func (api *Api) Start() {

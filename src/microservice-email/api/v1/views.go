@@ -23,7 +23,7 @@ func validEmailParams(m *lib.Email) (string, bool) {
 }
 
 // SendEmail is a view that receive a request and send an email
-func SendEmail(ctx *fasthttp.RequestCtx) error {
+func SendEmailView(ctx *fasthttp.RequestCtx) error {
 	ctx.SetContentType("application/json")
 
 	body := ctx.PostBody()
