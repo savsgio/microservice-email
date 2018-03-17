@@ -21,8 +21,10 @@ BUILD := `git rev-parse HEAD`
 # Use linker flags to provide version/build settings to the binary
 LDFLAGS=-ldflags "-X=main.Version=$(VERSION) -X=main.Build=$(BUILD)"
 
+DOCKER_COMPOSE_CMD = docker-compose -p $(PROJECT_NAME) -f environment/docker-compose.yml
 
-all: get build
+
+all: dep build
 
 check-path:
 ifndef GOPATH
@@ -32,9 +34,9 @@ ifndef GOPATH
 	@exit 1
 endif
 
-get: check-path
+dep: check-path
 	@echo "Downloading dependencies..."
-	@cd $(SRC_DIR)/ && go get
+	@cd $(SRC_DIR)/ && dep ensure
 	@echo "Finish..."
 
 build: check-path
@@ -71,10 +73,11 @@ run: build
 # -------------------------------------------------------------------
 
 docker_build:
-	@./environment/docker_scripts/build_image.sh
+	@$(DOCKER_COMPOSE_CMD) build $(PROJECT_NAME)
 
 docker_shell:
-	@./environment/docker_scripts/shell.sh
+	@$(DOCKER_COMPOSE_CMD) run --rm $(PROJECT_NAME) /bin/bash
 
 docker_run:
-	@./environment/docker_scripts/run.sh
+	@$(DOCKER_COMPOSE_CMD) run --rm --service-ports --name $(PROJECT_NAME) $(PROJECT_NAME) \
+		/bin/bash -ci "make dep && make run"

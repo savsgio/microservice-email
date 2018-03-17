@@ -2,16 +2,12 @@ package main
 
 import (
 	"flag"
-	"fmt"
-	"github.com/buaazp/fasthttprouter"
-	"github.com/savsgio/go-logger"
-	"github.com/valyala/fasthttp"
 	"microservice-email/api"
 	"microservice-email/lib"
 	"os"
-)
 
-var PORT = os.Getenv("PORT")
+	"github.com/savsgio/go-logger"
+)
 
 func init() {
 	var logLevel string
@@ -24,22 +20,10 @@ func init() {
 	lib.ReadConfig()
 }
 
-func StartApi() {
-	router := fasthttprouter.New()
-	router.POST("/api/v1/", api.V1)
-
-	server := &fasthttp.Server{
-		Name:    "MicroService Email",
-		Handler: router.Handler,
-	}
-
-	logger.Debugf("Listening in http://localhost:%s...", PORT)
-	logger.Fatal(server.ListenAndServe(fmt.Sprintf(":%s", PORT)))
-}
-
 func main() {
 	// RabbitMQ Consumer
 	rabbitmqConf := lib.Conf.RabbitMQ
+
 	go lib.NewRabbitMQ(
 		rabbitmqConf.Host,
 		rabbitmqConf.User,
@@ -51,5 +35,5 @@ func main() {
 	).StartConsumer()
 
 	// Web API
-	StartApi()
+	api.StartApi(os.Getenv("PORT"))
 }

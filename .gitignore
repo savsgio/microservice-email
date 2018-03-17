@@ -1,6 +1,8 @@
 .idea/
+.vscode/
 
 src/*
+src/microservice-email/vendor/
 !src/microservice-email
 
 etc/config-dev.yml

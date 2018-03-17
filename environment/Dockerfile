@@ -7,6 +7,14 @@ RUN aptitude full-upgrade -y && aptitude install -y $(tr '\n' ' ' < /tmp/require
 
 WORKDIR /code
 
-ENV GOPATH /code
+# Install golang dep manager
+RUN curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+
+ENV GOPATH /godeps
+
+# Create the user/group for the running stuff
+RUN useradd -s /bin/bash -mk /etc/skel savsgio
+
+USER savsgio
 
 CMD ["ls -las"]

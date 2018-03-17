@@ -1,9 +1,10 @@
 package lib
 
 import (
-	"github.com/go-yaml/yaml"
 	"io/ioutil"
 	"microservice-email/utils"
+
+	"gopkg.in/yaml.v2"
 )
 
 type Config struct {

@@ -1,15 +1,14 @@
-package api
+package v1
 
 import (
 	"encoding/json"
-	"fmt"
-	"github.com/valyala/fasthttp"
+	"errors"
 	"microservice-email/lib"
+	"microservice-email/utils"
 	"strings"
-)
 
-const HttpErrorMsg = "{\"Error\": \"%v\"}"
-const HttpSuccessMsg = "{\"Status\": \"OK\"}"
+	"github.com/valyala/fasthttp"
+)
 
 func validEmailParams(m *lib.Email) (string, bool) {
 	if len(m.To) == 0 || !strings.Contains(m.To, "@") {
@@ -23,23 +22,20 @@ func validEmailParams(m *lib.Email) (string, bool) {
 	return "", false
 }
 
-func V1(ctx *fasthttp.RequestCtx) {
+// V1 is a view that receive a request and send an email
+func V1(ctx *fasthttp.RequestCtx) error {
 	ctx.SetContentType("application/json")
 
 	body := ctx.PostBody()
 	params := &lib.Email{}
 
 	// Check if valid json body
-	err := json.Unmarshal(body, params)
-	if err != nil {
-		fmt.Fprintf(ctx, HttpErrorMsg, err)
-		ctx.SetStatusCode(500)
-		return
+	if err := json.Unmarshal(body, params); err != nil {
+		return err
 	}
+
 	if errorMsg, valid := validEmailParams(params); valid {
-		fmt.Fprintf(ctx, HttpErrorMsg, errorMsg)
-		ctx.SetStatusCode(400)
-		return
+		return errors.New(errorMsg)
 	}
 
 	rabbitmqConf := lib.Conf.RabbitMQ
@@ -52,12 +48,13 @@ func V1(ctx *fasthttp.RequestCtx) {
 		rabbitmqConf.ExchangeKind,
 		false,
 	)
-	err = rmq.Send(body)
 
-	if err != nil {
-		fmt.Fprintf(ctx, HttpErrorMsg, err)
-		ctx.SetStatusCode(500)
-	} else {
-		fmt.Fprint(ctx, HttpSuccessMsg)
+	if err := rmq.Send(body); err != nil {
+		return err
 	}
+
+	response := utils.Json{"Status": "OK"}
+
+	return json.NewEncoder(ctx).Encode(response)
+
 }

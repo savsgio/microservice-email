@@ -1,11 +1,12 @@
 package lib
 
 import (
+	"encoding/json"
 	"fmt"
+	"microservice-email/utils"
+
 	"github.com/savsgio/go-logger"
 	"github.com/streadway/amqp"
-	"microservice-email/utils"
-	"encoding/json"
 )
 
 const MsgContentType = "text/plain"
