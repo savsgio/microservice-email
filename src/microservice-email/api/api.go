@@ -9,15 +9,38 @@ import (
 	"github.com/valyala/fasthttp"
 )
 
-func StartApi(port string) {
-	router := fasthttprouter.New()
-	router.POST("/api/v1/", v1.Middleware(v1.V1))
+type Api struct {
+	Addr   string
+	Server *fasthttp.Server
+	Router *fasthttprouter.Router
+}
 
-	server := &fasthttp.Server{
-		Name:    "MicroService Email",
-		Handler: router.Handler,
+func New(port string) *Api {
+	router := fasthttprouter.New()
+
+	if len(port) == 0 {
+		port = "8000" // Default port
 	}
 
-	logger.Debugf("Listening in http://localhost:%s...", port)
-	logger.Fatal(server.ListenAndServe(fmt.Sprintf(":%s", port)))
+	api := &Api{
+		Addr:   fmt.Sprintf("0.0.0.0:%s", port),
+		Router: router,
+		Server: &fasthttp.Server{
+			Handler: router.Handler,
+			Name:    "MicroService Email",
+		},
+	}
+
+	api.setRoutesV1()
+
+	return api
+}
+
+func (api *Api) setRoutesV1() {
+	api.Router.POST("/api/v1/", v1.Middleware(v1.SendEmail))
+}
+
+func (api *Api) Start() {
+	logger.Infof("Listening on: http://%s/", api.Addr)
+	logger.Fatal(api.Server.ListenAndServe(api.Addr))
 }

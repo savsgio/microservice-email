@@ -113,9 +113,11 @@ func callback(d amqp.Delivery) {
 	utils.CheckException(err)
 
 	err = email.Send()
-	utils.CheckException(err)
-
-	logger.Debug("Email send successfully...")
+	if err != nil {
+		logger.Error(err)
+	} else {
+		logger.Debug("Email send successfully...")
+	}
 
 	d.Ack(false)
 }

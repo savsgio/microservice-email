@@ -22,8 +22,8 @@ func validEmailParams(m *lib.Email) (string, bool) {
 	return "", false
 }
 
-// V1 is a view that receive a request and send an email
-func V1(ctx *fasthttp.RequestCtx) error {
+// SendEmail is a view that receive a request and send an email
+func SendEmail(ctx *fasthttp.RequestCtx) error {
 	ctx.SetContentType("application/json")
 
 	body := ctx.PostBody()
@@ -56,5 +56,4 @@ func V1(ctx *fasthttp.RequestCtx) error {
 	response := utils.Json{"Status": "OK"}
 
 	return json.NewEncoder(ctx).Encode(response)
-
 }

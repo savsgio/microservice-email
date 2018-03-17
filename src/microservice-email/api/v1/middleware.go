@@ -1,39 +1,35 @@
 package v1
 
 import (
-	"errors"
-	"strings"
-
 	"github.com/savsgio/go-logger"
 	"github.com/valyala/fasthttp"
 )
 
 type customRequestHandler func(ctx *fasthttp.RequestCtx) error
-type middleware func(ctx *fasthttp.RequestCtx) error
+type middleware func(ctx *fasthttp.RequestCtx) (int, error)
 
 var middlewareList = []middleware{
-	authMiddleware,
+	// authMiddleware
 }
 
-func authMiddleware(ctx *fasthttp.RequestCtx) error {
-	// Example
-	if strings.Contains(ctx.URI().String(), "error") {
-		return errors.New("invalid request")
-	}
+// func authMiddleware(ctx *fasthttp.RequestCtx) (int, error) {
+// 	// Example
+// 	if strings.Contains(ctx.URI().String(), "error") {
+// 		return fasthttp.StatusBadRequest, errors.New("invalid request")
+// 	}
 
-	return nil
-}
+// 	return 0, nil
+// }
 
-// Middleware
 func Middleware(next customRequestHandler) fasthttp.RequestHandler {
 	return fasthttp.RequestHandler(func(ctx *fasthttp.RequestCtx) {
 		logger.Debugf("%s %s", ctx.Method(), ctx.URI())
 
 		for _, middleware := range middlewareList {
-			if err := middleware(ctx); err != nil {
+			if statusCode, err := middleware(ctx); err != nil {
 				logger.Errorf("Msg: %v | RequestUri: %s", err, ctx.URI().String())
 
-				ctx.SetStatusCode(400)
+				ctx.SetStatusCode(statusCode)
 				ctx.ResetBody()
 				ctx.Write([]byte(err.Error()))
 
