@@ -40,7 +40,7 @@ func (api *Api) setRoutesV1() {
 	api.Router.POST("/api/v1/", v1.Middleware(v1.SendEmailView))
 }
 
-func (api *Api) Start() {
+func (api *Api) ListenAndServe() {
 	logger.Infof("Listening on: http://%s/", api.Addr)
 	logger.Fatal(api.Server.ListenAndServe(api.Addr))
 }

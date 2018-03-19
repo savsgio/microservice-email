@@ -35,5 +35,5 @@ func main() {
 	).StartConsumer()
 
 	// Web API
-	api.New(os.Getenv("PORT")).Start()
+	api.New(os.Getenv("PORT")).ListenAndServe()
 }

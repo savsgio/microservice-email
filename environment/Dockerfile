@@ -1,4 +1,4 @@
-FROM golang:1.9-stretch
+FROM golang:1.10-stretch
 
 COPY requirements.apt /tmp/requirements.apt
 

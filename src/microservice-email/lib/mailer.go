@@ -5,7 +5,7 @@ import (
 )
 
 type Email struct {
-	To          string
+	To          []string
 	Subject     string
 	Body        string
 	ContentType string `json:"content_type"`
@@ -14,7 +14,7 @@ type Email struct {
 func (m *Email) Send() error {
 	gm := gomail.NewMessage()
 	gm.SetHeader("From", Conf.Smtp.User)
-	gm.SetHeader("To", m.To)
+	gm.SetHeader("To", m.To...)
 	gm.SetHeader("Subject", m.Subject)
 	gm.SetBody(m.ContentType, m.Body)
 

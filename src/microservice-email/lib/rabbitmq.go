@@ -32,15 +32,15 @@ func NewRabbitMQ(host string, user string, password string, queueName string, ex
 	utils.CheckException(err)
 
 	if declare {
-		rmq.DeclareExchangeAndQueue()
+		rmq.exchangeAndQueueDeclare()
 	} else {
-		rmq.BindQueue()
+		rmq.queueBind()
 	}
 
 	return rmq
 }
 
-func (rmq *RabbitMQ) DeclareExchangeAndQueue() {
+func (rmq *RabbitMQ) exchangeAndQueueDeclare() {
 	logger.Debugf("Declaring exchange: %s", rmq.ExchangeName)
 	err := rmq.Channel.ExchangeDeclare(
 		rmq.ExchangeName,
@@ -73,7 +73,7 @@ func (rmq *RabbitMQ) DeclareExchangeAndQueue() {
 	utils.CheckException(err)
 }
 
-func (rmq *RabbitMQ) BindQueue() {
+func (rmq *RabbitMQ) queueBind() {
 	logger.Debugf("Binding queue: %s", rmq.QueueName)
 	err := rmq.Channel.QueueBind(
 		rmq.QueueName,
