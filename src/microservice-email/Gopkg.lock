@@ -14,26 +14,20 @@
   revision = "81ebce5c23dfd25c6c67194b37d3dd3f338c98b1"
 
 [[projects]]
+  branch = "master"
   name = "github.com/klauspost/compress"
   packages = [
     "flate",
     "gzip",
     "zlib"
   ]
-  revision = "6c8db69c4b49dd4df1fff66996cf556176d0b9bf"
-  version = "v1.2.1"
+  revision = "2c62357afe99df84d86deb8044ab5b16ac2d1712"
 
 [[projects]]
+  branch = "master"
   name = "github.com/klauspost/cpuid"
   packages = ["."]
-  revision = "ae7887de9fa5d2db4eaa8174a7eff2c1ac00f2da"
-  version = "v1.1"
-
-[[projects]]
-  name = "github.com/klauspost/crc32"
-  packages = ["."]
-  revision = "cb6bfca970f6908083f26f39a79009d608efd5cd"
-  version = "v1.1"
+  revision = "ae832f27941af41db13bd6d8efd2493e3b22415a"
 
 [[projects]]
   name = "github.com/savsgio/go-logger"
@@ -78,6 +72,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "c9a386a1f0a3bd3904628cafa8971cd3ea0731ed6ca2ee2bd254334b0c05954c"
+  inputs-digest = "b41f247ae6ba5ec2851ac868f70c5ae633c0e7e401e8c8e495792aa740cb214e"
   solver-name = "gps-cdcl"
   solver-version = 1

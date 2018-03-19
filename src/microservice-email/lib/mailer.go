@@ -1,8 +1,6 @@
 package lib
 
-import (
-	"github.com/go-gomail/gomail"
-)
+import "github.com/go-gomail/gomail"
 
 type Email struct {
 	To          []string
