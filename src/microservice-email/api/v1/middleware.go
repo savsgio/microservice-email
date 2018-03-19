@@ -52,11 +52,7 @@ func Middleware(next customRequestHandler) fasthttp.RequestHandler {
 			if statusCode, err := middleware(ctx); err != nil {
 				logger.Errorf("Msg: %v | RequestUri: %s", err, ctx.URI().String())
 
-				ctx.SetStatusCode(statusCode)
-				ctx.SetContentType("application/json")
-				ctx.ResetBody()
-				json.NewEncoder(ctx).Encode(utils.Json{"Error": err.Error()})
-
+				utils.JsonResponse(ctx, utils.Json{"Error": err.Error()}, statusCode)
 				return
 			}
 		}

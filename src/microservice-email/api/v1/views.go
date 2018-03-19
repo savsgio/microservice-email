@@ -1,7 +1,6 @@
 package v1
 
 import (
-	"encoding/json"
 	"microservice-email/lib"
 	"microservice-email/utils"
 
@@ -10,8 +9,6 @@ import (
 
 // SendEmailView is a view that receive a request and send an email
 func SendEmailView(ctx *fasthttp.RequestCtx) error {
-	ctx.SetContentType("application/json")
-
 	rabbitmqConf := lib.Conf.RabbitMQ
 	rmq := lib.NewRabbitMQ(
 		rabbitmqConf.Host,
@@ -28,7 +25,5 @@ func SendEmailView(ctx *fasthttp.RequestCtx) error {
 		return err
 	}
 
-	response := utils.Json{"Status": "OK"}
-
-	return json.NewEncoder(ctx).Encode(response)
+	return utils.JsonResponse(ctx, utils.Json{"Status": "OK"})
 }
