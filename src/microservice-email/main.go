@@ -15,9 +15,9 @@ func init() {
 	var logLevel string
 	var showVersion bool
 
-	flag.BoolVar(&showVersion, "version", false, "Print version of service")
 	flag.StringVar(&logLevel, "log-level", logger.WARNING, "Log level")
 	flag.StringVar(&lib.ConfigFilePath, "config-file", "/etc/microservice-email.yml", "Configuration file path")
+	flag.BoolVar(&showVersion, "version", false, "Print version of service")
 	flag.Parse()
 
 	if showVersion {

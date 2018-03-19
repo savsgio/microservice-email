@@ -3,7 +3,7 @@ Microservice for send emails
 
 #### System Dependencies
 
-- [Go v1.9.2](https://golang.org/dl/)
+- [Go](https://golang.org/dl/) (>= 1.9)
 - [RabbitMQ](https://www.rabbitmq.com/)
 - make
 
@@ -62,7 +62,8 @@ microservice-email
 
 Optional arguments:
 - `-log-level`: Level of log that you want to show (default: *info*)
-- `-config-file`:  Path of configuration file (default: */etc/microservice-email.yml*)
+- `-config-file`: Path of configuration file (default: */etc/microservice-email.yml*)
+- `-version`: Print version of service
 
 #### API:
 
