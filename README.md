@@ -9,6 +9,7 @@ Microservice to send emails
 #### System Dependencies
 
 - [Go](https://golang.org/dl/) (>= 1.9)
+- [Dep (Dependency management for Go)](https://golang.github.io/dep/)
 - [RabbitMQ](https://www.rabbitmq.com/)
 - make
 
