@@ -1,4 +1,4 @@
-FROM golang:1.9-stretch
+FROM golang:1.10-stretch
 
 COPY requirements.apt /tmp/requirements.apt
 
@@ -7,6 +7,14 @@ RUN aptitude full-upgrade -y && aptitude install -y $(tr '\n' ' ' < /tmp/require
 
 WORKDIR /code
 
-ENV GOPATH /code
+# Install golang dep manager
+RUN curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+
+ENV GOPATH /godeps
+
+# Create the user/group for the running stuff
+RUN useradd -s /bin/bash -mk /etc/skel savsgio
+
+USER savsgio
 
 CMD ["ls -las"]

@@ -2,44 +2,37 @@ package main
 
 import (
 	"flag"
-	"fmt"
-	"github.com/buaazp/fasthttprouter"
-	"github.com/savsgio/go-logger"
-	"github.com/valyala/fasthttp"
 	"microservice-email/api"
 	"microservice-email/lib"
 	"os"
+
+	"github.com/savsgio/go-logger"
 )
 
-var PORT = os.Getenv("PORT")
+const version = "1.1.0"
 
 func init() {
 	var logLevel string
+	var showVersion bool
 
 	flag.StringVar(&logLevel, "log-level", logger.WARNING, "Log level")
 	flag.StringVar(&lib.ConfigFilePath, "config-file", "/etc/microservice-email.yml", "Configuration file path")
+	flag.BoolVar(&showVersion, "version", false, "Print version of service")
 	flag.Parse()
+
+	if showVersion {
+		println("Version: " + version)
+		os.Exit(0)
+	}
 
 	logger.Setup(logLevel)
 	lib.ReadConfig()
 }
 
-func StartApi() {
-	router := fasthttprouter.New()
-	router.POST("/api/v1/", api.V1)
-
-	server := &fasthttp.Server{
-		Name:    "MicroService Email",
-		Handler: router.Handler,
-	}
-
-	logger.Debugf("Listening in http://localhost:%s...", PORT)
-	logger.Fatal(server.ListenAndServe(fmt.Sprintf(":%s", PORT)))
-}
-
 func main() {
-	// RabbitMQ Consumer
+	// Email Sender
 	rabbitmqConf := lib.Conf.RabbitMQ
+
 	go lib.NewRabbitMQ(
 		rabbitmqConf.Host,
 		rabbitmqConf.User,
@@ -51,5 +44,5 @@ func main() {
 	).StartConsumer()
 
 	// Web API
-	StartApi()
+	api.New(os.Getenv("PORT")).ListenAndServe()
 }

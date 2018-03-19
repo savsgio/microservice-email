@@ -12,17 +12,20 @@ BIN_DIR = bin
 BIN_FILE = $(PROJECT_NAME)
 
 SRC_DIR = ./src/$(PROJECT_NAME)
-SRC_PKGS = $$(go list $(SRC_DIR)/...)
+SRC_PKGS = $(shell go list $(SRC_DIR)/...)
 SRC_FILES = $(shell find . -type f -name '*.go' -path "$(SRC_DIR)/*")
 
-VERSION := 1.0.2
-BUILD := `git rev-parse HEAD`
+# Get version constant
+VERSION := $(shell cat $(SRC_DIR)/main.go | grep "const version = " | awk '{print $$NF}' | sed -e 's/^.//' -e 's/.$$//')
+BUILD := $(shell git rev-parse HEAD)
 
 # Use linker flags to provide version/build settings to the binary
 LDFLAGS=-ldflags "-X=main.Version=$(VERSION) -X=main.Build=$(BUILD)"
 
+DOCKER_COMPOSE_CMD = docker-compose -p $(PROJECT_NAME) -f environment/docker-compose.yml
 
-all: get build
+
+all: dep build
 
 check-path:
 ifndef GOPATH
@@ -32,9 +35,9 @@ ifndef GOPATH
 	@exit 1
 endif
 
-get: check-path
+dep: check-path
 	@echo "Downloading dependencies..."
-	@cd $(SRC_DIR)/ && go get
+	@cd $(SRC_DIR)/ && dep ensure
 	@echo "Finish..."
 
 build: check-path
@@ -64,17 +67,18 @@ simplify: check-path
 	@gofmt -s -l -w $(SRC_FILES)
 
 run: build
-	$(BUILD_DIR)/$(BIN_FILE) -config-file=etc/config-dev.yml -log-level=debug
+	$(BUILD_DIR)/$(BIN_FILE) -config-file=etc/config.dev.yml -log-level=debug
 
 # -------------------------------------------------------------------
 # -								Docker								-
 # -------------------------------------------------------------------
 
 docker_build:
-	@./environment/docker_scripts/build_image.sh
+	@$(DOCKER_COMPOSE_CMD) build $(PROJECT_NAME)
 
 docker_shell:
-	@./environment/docker_scripts/shell.sh
+	@$(DOCKER_COMPOSE_CMD) run --rm $(PROJECT_NAME) /bin/bash
 
 docker_run:
-	@./environment/docker_scripts/run.sh
+	@$(DOCKER_COMPOSE_CMD) run --rm --service-ports --name $(PROJECT_NAME) $(PROJECT_NAME) \
+		/bin/bash -ci "make dep && make run"

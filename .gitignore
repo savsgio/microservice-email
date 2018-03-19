@@ -1,9 +1,11 @@
 .idea/
+.vscode/
 
 src/*
+src/microservice-email/vendor/
 !src/microservice-email
 
-etc/config-dev.yml
+etc/config.dev.yml
 
 pkg/
 build/
