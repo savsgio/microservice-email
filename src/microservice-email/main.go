@@ -9,19 +9,28 @@ import (
 	"github.com/savsgio/go-logger"
 )
 
+const version = "1.1.0"
+
 func init() {
 	var logLevel string
+	var showVersion bool
 
+	flag.BoolVar(&showVersion, "version", false, "Print version of service")
 	flag.StringVar(&logLevel, "log-level", logger.WARNING, "Log level")
 	flag.StringVar(&lib.ConfigFilePath, "config-file", "/etc/microservice-email.yml", "Configuration file path")
 	flag.Parse()
+
+	if showVersion {
+		println("Version: " + version)
+		os.Exit(0)
+	}
 
 	logger.Setup(logLevel)
 	lib.ReadConfig()
 }
 
 func main() {
-	// RabbitMQ Consumer
+	// Email Sender
 	rabbitmqConf := lib.Conf.RabbitMQ
 
 	go lib.NewRabbitMQ(
