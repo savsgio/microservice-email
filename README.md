@@ -1,5 +1,10 @@
-Microservice for send emails
-============================
+[![Go Report Card](https://goreportcard.com/badge/github.com/savsgio/microservice-email)](https://goreportcard.com/report/github.com/savsgio/microservice-email)
+
+microservice-email
+==================
+
+Microservice to send emails
+
 
 #### System Dependencies
 
