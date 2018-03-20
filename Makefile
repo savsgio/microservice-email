@@ -12,7 +12,7 @@ BIN_DIR = bin
 BIN_FILE = $(PROJECT_NAME)
 
 SRC_DIR = ./src/$(PROJECT_NAME)
-SRC_PKGS = $(shell go list $(SRC_DIR)/...)
+SRC_PKGS = $(shell GOPATH=$(GOPATH); go list $(SRC_DIR)/...)
 SRC_FILES = $(shell find . -type f -name '*.go' -path "$(SRC_DIR)/*")
 
 # Get version constant
@@ -59,6 +59,7 @@ install: check-path
 
 uninstall:
 	@rm -f $$(which $(BIN_FILE))
+	@rm -f /etc/microservice-email.yml
 
 fmt: check-path
 	@gofmt -l -w $(SRC_FILES)
