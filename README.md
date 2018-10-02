@@ -1,7 +1,8 @@
-[![Go Report Card](https://goreportcard.com/badge/github.com/savsgio/microservice-email)](https://goreportcard.com/report/github.com/savsgio/microservice-email)
-
 microservice-email
 ==================
+
+[![Go Report Card](https://goreportcard.com/badge/github.com/savsgio/microservice-email)](https://goreportcard.com/report/github.com/savsgio/microservice-email)
+
 
 Microservice to send emails
 
@@ -11,16 +12,6 @@ Microservice to send emails
 - [Dep (Dependency management for Go)](https://golang.github.io/dep/)
 - [RabbitMQ](https://www.rabbitmq.com/)
 - make
-
-### Go dependencies
-
-- [fasthttp](https://github.com/valyala/fasthttp)
-- [fasthttprouter](https://github.com/buaazp/fasthttprouter)
-- [amqp](https://github.com/streadway/amqp)
-- [gomail](https://github.com/go-gomail/gomail)
-- [yaml](https://github.com/go-yaml/yaml)
-- [go-logger](https://github.com/savsgio/go-logger)
-
 
 ## Installation
 
@@ -80,13 +71,6 @@ make docker_run
 
 ## For Devs
 
-fmt:
-```bash
-make simplify
-```
-
-Run:
-
 Copy `etc/config.yml` to `etc/config.dev.yml` *(this file not tracked in Git)*, modify each config and exec:
 ```bash
 make run
@@ -103,6 +87,6 @@ rabbitmq:
 ...
 ```
 
-## Others
+## Contributing
 
 **Feel free to contribute it or fork me...** :wink:

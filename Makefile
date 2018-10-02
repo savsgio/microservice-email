@@ -61,12 +61,6 @@ uninstall:
 	@rm -f $$(which $(BIN_FILE))
 	@rm -f /etc/microservice-email.yml
 
-fmt: check-path
-	@gofmt -l -w $(SRC_FILES)
-
-simplify: check-path
-	@gofmt -s -l -w $(SRC_FILES)
-
 run: build
 	$(BUILD_DIR)/$(BIN_FILE) -config-file=etc/config.dev.yml -log-level=debug
 

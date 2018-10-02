@@ -2,7 +2,6 @@ package lib
 
 import (
 	"io/ioutil"
-	"microservice-email/utils"
 
 	"gopkg.in/yaml.v2"
 )
@@ -30,10 +29,14 @@ var ConfigFilePath string
 
 func ReadConfig() {
 	fileData, err := ioutil.ReadFile(ConfigFilePath)
-	utils.CheckException(err)
+	if err != nil {
+		panic(err)
+	}
 
-	Conf = &Config{}
+	Conf = new(Config)
 
 	err = yaml.Unmarshal(fileData, Conf)
-	utils.CheckException(err)
+	if err != nil {
+		panic(err)
+	}
 }

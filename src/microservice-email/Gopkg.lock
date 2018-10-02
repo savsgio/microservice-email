@@ -3,75 +3,119 @@
 
 [[projects]]
   branch = "master"
+  digest = "1:c2070df25eadf11d68bd76e4cc5252c578b9738798dadfd97b8e3dca6a64a548"
   name = "github.com/buaazp/fasthttprouter"
   packages = ["."]
+  pruneopts = "UT"
   revision = "28db72dff5a1512dab256b4b7f85c5aa8c36cf73"
 
 [[projects]]
   branch = "master"
+  digest = "1:e096ada745e034a059752c202717baee0379b69db9473a90f59d103c973384cf"
   name = "github.com/go-gomail/gomail"
   packages = ["."]
+  pruneopts = "UT"
   revision = "81ebce5c23dfd25c6c67194b37d3dd3f338c98b1"
 
 [[projects]]
-  branch = "master"
+  digest = "1:cdbed6a7b574b13bbabcd8c36c5be56d6444789bab21fcd37d39655eab0b2141"
   name = "github.com/klauspost/compress"
   packages = [
     "flate",
     "gzip",
-    "zlib"
+    "zlib",
   ]
-  revision = "2c62357afe99df84d86deb8044ab5b16ac2d1712"
+  pruneopts = "UT"
+  revision = "b939724e787a27c0005cabe3f78e7ed7987ac74f"
+  version = "v1.4.0"
 
 [[projects]]
-  branch = "master"
+  digest = "1:4ea0668d490ca32a38366453a486e2e8c60fbdaf1f2607c96b4a093d8a5c8de7"
   name = "github.com/klauspost/cpuid"
   packages = ["."]
-  revision = "ae832f27941af41db13bd6d8efd2493e3b22415a"
+  pruneopts = "UT"
+  revision = "ae7887de9fa5d2db4eaa8174a7eff2c1ac00f2da"
+  version = "v1.1"
 
 [[projects]]
+  digest = "1:43f9a252e668c0e99e42c7da55404631478bb6590ea2f49d40f26c1843e2c3fc"
+  name = "github.com/savsgio/atreugo"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "0e2e1cc6050556c060beb2c2777537d4407bbba3"
+  version = "v5.2.1"
+
+[[projects]]
+  digest = "1:90bd4bcf8928e69f2d02c15044ed413939c454be8fe215616d216a1a9f68ffe2"
   name = "github.com/savsgio/go-logger"
   packages = ["."]
-  revision = "71007ae121f4f5588fc8e9e5ab5dbf25b1861ced"
-  version = "v1.0.0"
+  pruneopts = "UT"
+  revision = "960ba99cb6e8388b24992b3a92ea445a8ef2bb60"
+  version = "v2.1.0"
 
 [[projects]]
   branch = "master"
+  digest = "1:0c088044c1c1ee83e723692442df4fec9b3f2e57f7a99773485c97adfbc31695"
   name = "github.com/streadway/amqp"
   packages = ["."]
-  revision = "8e4aba63da9fc5571e01c6a45dc809a58cbc5a68"
+  pruneopts = "UT"
+  revision = "70e15c650864f4fc47f5d3c82ea117285480895d"
 
 [[projects]]
   branch = "master"
+  digest = "1:f52b91ab1b58aa5217d6094865dda519f75296c3884380526cd127bc19f02461"
   name = "github.com/valyala/bytebufferpool"
   packages = ["."]
-  revision = "e746df99fe4a3986f4d4f79e13c1e0117ce9c2f7"
+  pruneopts = "UT"
+  revision = "cdfbe9377474227bb42120c1e22fd4433e7f69bf"
 
 [[projects]]
   branch = "master"
+  digest = "1:6e56e85d0ada02305f14e3d278c8f3e5e971c73d88b654c2b8b6244160311bc7"
   name = "github.com/valyala/fasthttp"
   packages = [
     ".",
     "fasthttputil",
-    "stackless"
+    "reuseport",
+    "stackless",
   ]
-  revision = "e5f51c11919d4f66400334047b897ef0a94c6f3c"
+  pruneopts = "UT"
+  revision = "4087354082e1ab9a610705ec9f7949603d3c46ab"
+
+[[projects]]
+  branch = "master"
+  digest = "1:8507835fade46d48a94828b351e1f8fb83df1aa65ba1e67c9493b0a1b47abc73"
+  name = "github.com/valyala/tcplisten"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "ceec8f93295a060cdb565ec25e4ccf17941dbd55"
 
 [[projects]]
   branch = "v3"
+  digest = "1:7388652e2215a3f45d341d58766ed58317971030eb1cbd75f005f96ace8e9196"
   name = "gopkg.in/alexcesaro/quotedprintable.v3"
   packages = ["."]
+  pruneopts = "UT"
   revision = "2caba252f4dc53eaf6b553000885530023f54623"
 
 [[projects]]
+  digest = "1:342378ac4dcb378a5448dd723f0784ae519383532f5e70ade24132c4c8693202"
   name = "gopkg.in/yaml.v2"
   packages = ["."]
-  revision = "7f97868eec74b32b0982dd158a51a446d1da7eb5"
-  version = "v2.1.1"
+  pruneopts = "UT"
+  revision = "5420a8b6744d3b0345ab293f6fcba19c978f1183"
+  version = "v2.2.1"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "b41f247ae6ba5ec2851ac868f70c5ae633c0e7e401e8c8e495792aa740cb214e"
+  input-imports = [
+    "github.com/go-gomail/gomail",
+    "github.com/savsgio/atreugo",
+    "github.com/savsgio/go-logger",
+    "github.com/streadway/amqp",
+    "github.com/valyala/fasthttp",
+    "gopkg.in/yaml.v2",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1

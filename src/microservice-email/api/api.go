@@ -1,46 +1,40 @@
 package api
 
 import (
-	"fmt"
-	"microservice-email/api/v1"
-
-	"github.com/buaazp/fasthttprouter"
-	"github.com/savsgio/go-logger"
-	"github.com/valyala/fasthttp"
+	"github.com/savsgio/atreugo"
 )
 
 type Api struct {
-	Addr   string
-	Server *fasthttp.Server
-	Router *fasthttprouter.Router
+	Server *atreugo.Atreugo
 }
 
-func New(port string) *Api {
-	router := fasthttprouter.New()
-
-	if len(port) == 0 {
-		port = "8000" // Default port
+func New(port int) *Api {
+	if port == 0 {
+		port = 8000 // Default port
 	}
 
 	api := &Api{
-		Addr:   fmt.Sprintf("0.0.0.0:%s", port),
-		Router: router,
-		Server: &fasthttp.Server{
-			Handler: router.Handler,
-			Name:    "MicroService Email",
-		},
+		Server: atreugo.New(&atreugo.Config{
+			Host:             "0.0.0.0",
+			Port:             port,
+			GracefulShutdown: true,
+		}),
 	}
 
-	api.setRoutesV1()
+	api.setRoutes()
+	api.registerMiddlewares()
 
 	return api
 }
 
-func (api *Api) setRoutesV1() {
-	api.Router.POST("/api/v1/", v1.Middleware(v1.SendEmailView))
+func (api *Api) setRoutes() {
+	api.Server.Path("POST", "/api/v1/", sendEmailView)
 }
 
-func (api *Api) ListenAndServe() {
-	logger.Infof("Listening on: http://%s/", api.Addr)
-	logger.Fatal(api.Server.ListenAndServe(api.Addr))
+func (api *Api) registerMiddlewares() {
+	api.Server.UseMiddleware(checkParamsMiddleware)
+}
+
+func (api *Api) ListenAndServe() error {
+	return api.Server.ListenAndServe()
 }
