@@ -1,12 +1,27 @@
-.idea/
+# IDE
 .vscode/
 
-src/*
-src/microservice-email/vendor/
-!src/microservice-email
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
 
-etc/config.dev.yml
+# Test binary, build with `go test -c`
+*.test
 
-pkg/
-build/
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Binary directory
 bin/
+
+# Log files
+**/*.log
+
+# Develelop config file
+config/microservice-email.dev.conf.yml
+
+# Profiling files
+**/*.prof

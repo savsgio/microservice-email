@@ -1,11 +1,13 @@
 package api
 
 import (
-	"github.com/savsgio/atreugo"
+	"strconv"
+
+	"github.com/savsgio/atreugo/v10"
 )
 
 type Api struct {
-	Server *atreugo.Atreugo
+	server *atreugo.Atreugo
 }
 
 func New(port int) *Api {
@@ -14,9 +16,8 @@ func New(port int) *Api {
 	}
 
 	api := &Api{
-		Server: atreugo.New(&atreugo.Config{
-			Host:             "0.0.0.0",
-			Port:             port,
+		server: atreugo.New(atreugo.Config{
+			Addr:             "0.0.0.0" + strconv.Itoa(port),
 			GracefulShutdown: true,
 		}),
 	}
@@ -28,13 +29,13 @@ func New(port int) *Api {
 }
 
 func (api *Api) setRoutes() {
-	api.Server.Path("POST", "/api/v1/", sendEmailView)
+	api.server.Path("POST", "/api/v1/", sendEmailView)
 }
 
 func (api *Api) registerMiddlewares() {
-	api.Server.UseMiddleware(checkParamsMiddleware)
+	api.server.UseBefore(checkParamsMiddleware)
 }
 
 func (api *Api) ListenAndServe() error {
-	return api.Server.ListenAndServe()
+	return api.server.ListenAndServe()
 }

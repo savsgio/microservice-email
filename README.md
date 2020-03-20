@@ -1,8 +1,6 @@
-microservice-email
-==================
+# microservice-email
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/savsgio/microservice-email)](https://goreportcard.com/report/github.com/savsgio/microservice-email)
-
 
 Microservice to send emails
 
@@ -16,34 +14,38 @@ Microservice to send emails
 ## Installation
 
 Download Go dependencies and build:
+
 ```bash
 make
 ```
 
 Install
+
 ```bash
 make install
 ```
 
 After, you can exec with
+
 ```bash
 microservice-email
 ```
 
 Optional arguments:
-- `-log-level`: Level of log that you want to show (default: *info*)
-- `-config-file`: Path of configuration file (default: */etc/microservice-email.yml*)
+
+- `-log-level`: Level of log that you want to show (default: _info_)
+- `-config-file`: Path of configuration file (default: _/etc/microservice-email.yml_)
 - `-version`: Print version of service
 
 ### API:
 
-This API only accept ***POST*** http request with below parameters in body:
+This API only accept **_POST_** http request with below parameters in body:
 
 Explanation (all are required):
 
 - `to`: List of emails of destiny
 - `subject`: Subject of email
-- `content_type`: Content type of email that it can be ***text/plain*** or ***text/html***
+- `content_type`: Content type of email that it can be **_text/plain_** or **_text/html_**
 - `body`: Content of email
 
 Example of request to send a email:
@@ -62,21 +64,30 @@ Example of request to send a email:
 ### Dependencies
 
 - [Docker](https://www.docker.com/)
-- [Docker-compose](https://docs.docker.com/compose/) *Recommended to install with `pip3` (python3)*
+- [Docker-compose](https://docs.docker.com/compose/) \_Recommended to install with `pip3` (python3).
+
+Build:
+
+```bash
+make docker_build
+```
 
 Run:
+
 ```bash
 make docker_run
 ```
 
 ## For Devs
 
-Copy `etc/config.yml` to `etc/config.dev.yml` *(this file not tracked in Git)*, modify each config and exec:
+Copy `config/microservice-email.conf` to `config/microservice-email.dev.conf.yml` _(this file not tracked in Git)_, modify each config and exec:
+
 ```bash
 make run
 ```
 
-***Note:*** If you want to use with Docker, make sure you have this rabbitmq configuration in `etc/config.dev.yml`:
+**_Note:_** If you want to use with Docker, make sure you have this rabbitmq configuration in `config/microservice-email.dev.conf.yml`:
+
 ```yaml
 ...
 rabbitmq:

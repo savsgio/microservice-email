@@ -2,27 +2,32 @@ package main
 
 import (
 	"flag"
-	"microservice-email/api"
-	"microservice-email/lib"
+	"fmt"
 	"os"
+	"runtime"
 	"strconv"
 
 	"github.com/savsgio/go-logger"
+	"github.com/savsgio/microservice-email/internal/api"
+	"github.com/savsgio/microservice-email/internal/lib"
 )
 
-const version = "1.2.0"
+var version, build string
 
 func init() {
 	var logLevel string
 	var showVersion bool
 
 	flag.StringVar(&logLevel, "log-level", logger.INFO, "Log level")
-	flag.StringVar(&lib.ConfigFilePath, "config-file", "/etc/microservice-email.yml", "Configuration file path")
+	flag.StringVar(&lib.ConfigFilePath, "config-file", "/etc/microservice-email.conf.yml", "Configuration file path")
 	flag.BoolVar(&showVersion, "version", false, "Print version of service")
 	flag.Parse()
 
 	if showVersion {
-		println("Version: " + version)
+		fmt.Println("Microservice-email:")
+		fmt.Printf("  Version: %s\n", version)
+		fmt.Printf("  Build: %s\n\n", build)
+		fmt.Printf("Go version: %s\n", runtime.Version())
 		os.Exit(0)
 	}
 

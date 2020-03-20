@@ -1,17 +1,18 @@
-version: '3.5'
+version: '3.7'
 services:
   microservice-email:
+    image: savsgio/microservice-email
     build:
       context: ../
-      dockerfile: environment/Dockerfile
+      dockerfile: docker/Dockerfile
     container_name: microservice_email
     hostname: microservice_email
     ports:
-      - "8000:8000"
+      - "8080:8080"
     volumes:
       - ../:/code
     environment:
-      - PORT=8000
+      - PORT=8080
     links:
       - rabbitmq:rabbitmq_server
 
