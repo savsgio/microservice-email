@@ -1,7 +1,7 @@
 package api
 
 import (
-	"github.com/savsgio/atreugo/v10"
+	"github.com/savsgio/atreugo/v11"
 	"github.com/savsgio/microservice-email/internal/lib"
 )
 

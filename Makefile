@@ -36,7 +36,7 @@ test:
 	go test -v -race -cover ./...
 
 run: build
-	$(BIN_DIR)/$(BIN_FILE) -config $(CONFIG_DIR)/$(PROJECT_NAME).conf.yml
+	$(BIN_DIR)/$(BIN_FILE) -config-file $(CONFIG_DIR)/$(PROJECT_NAME).conf.yml
 
 install:
 	mkdir -p /etc/$(PROJECT_NAME)/
