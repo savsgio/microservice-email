@@ -1,12 +1,14 @@
 # microservice-email
 
+[![Build Status](https://travis-ci.org/savsgio/atreugo.svg?branch=master)](https://travis-ci.org/savsgio/atreugo)
 [![Go Report Card](https://goreportcard.com/badge/github.com/savsgio/microservice-email)](https://goreportcard.com/report/github.com/savsgio/microservice-email)
+[![GitHub release](https://img.shields.io/github/release/savsgio/atreugo.svg)](https://github.com/savsgio/atreugo/releases)
 
 Microservice to send emails
 
 ### System requirements
 
-- [Go](https://golang.org/dl/) (>= 1.13)
+- [Go](https://golang.org/dl/) (>= 1.11)
 - [RabbitMQ](https://www.rabbitmq.com/)
 - make
 
