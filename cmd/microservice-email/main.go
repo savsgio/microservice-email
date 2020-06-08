@@ -7,7 +7,7 @@ import (
 	"runtime"
 	"strconv"
 
-	"github.com/savsgio/go-logger"
+	"github.com/savsgio/go-logger/v2"
 	"github.com/savsgio/microservice-email/internal/api"
 	"github.com/savsgio/microservice-email/internal/lib"
 )
