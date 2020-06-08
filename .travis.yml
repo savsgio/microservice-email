@@ -1,18 +1,26 @@
 language: go
-sudo: false
-go:
-  - 1.13.x
-  - 1.14.x
-  - tip
 
 os:
   - linux
   - osx
 
+go:
+  - 1.14.x
+  - 1.13.x
+  - 1.12.x
+  - 1.11.x
+  - tip
+
+before_script:
+  - go get -t -v ./...
+
 script:
-  # build test for supported platforms
   - GOOS=linux go build -o /dev/null ./cmd/...
   - GOOS=darwin go build -o /dev/null ./cmd/...
   - GOOS=freebsd go build -o /dev/null ./cmd/...
   - GOOS=windows go build -o /dev/null ./cmd/...
   - GOARCH=386 go build -o /dev/null ./cmd/...
+
+jobs:
+  allow_failures:
+    - go: tip
