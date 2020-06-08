@@ -1,8 +1,8 @@
 # microservice-email
 
-[![Build Status](https://travis-ci.org/savsgio/atreugo.svg?branch=master)](https://travis-ci.org/savsgio/atreugo)
+[![Build Status](https://travis-ci.org/savsgio/microservice-email.svg?branch=master)](https://travis-ci.org/savsgio/microservice-email)
 [![Go Report Card](https://goreportcard.com/badge/github.com/savsgio/microservice-email)](https://goreportcard.com/report/github.com/savsgio/microservice-email)
-[![GitHub release](https://img.shields.io/github/release/savsgio/atreugo.svg)](https://github.com/savsgio/atreugo/releases)
+[![GitHub release](https://img.shields.io/github/release/savsgio/microservice-email.svg)](https://github.com/savsgio/microservice-email/releases)
 
 Microservice to send emails
 
