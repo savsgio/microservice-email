@@ -8,7 +8,7 @@ Microservice to send emails
 
 ### System requirements
 
-- [Go](https://golang.org/dl/) (>= 1.11)
+- [Go](https://golang.org/dl/) (>= 1.12)
 - [RabbitMQ](https://www.rabbitmq.com/)
 - make
 
