@@ -6,7 +6,6 @@ FROM golang:1.15-alpine3.12 as builder
 
 RUN apk add git build-base
 
-RUN mkdir -p /usr/src/microservice-email
 WORKDIR /usr/src/microservice-email
 
 ADD .git ./.git
@@ -31,7 +30,7 @@ LABEL Author="Sergio Andres Virviescas Santana <developersavsgio@gmail.com>"
 COPY --from=builder /usr/src/microservice-email/ /microservice-email
 
 RUN cd /microservice-email \
-    && apk add make git \
+    && apk add --no-cache make git \
     && make install \
     && rm -rf /microservice-email \
     && apk del make git

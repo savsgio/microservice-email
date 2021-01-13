@@ -10,7 +10,7 @@ CMD_DIR = ./cmd
 CONFIG_DIR = ./config/
 
 # Get version constant
-VERSION := 1.4.1
+VERSION := ${shell git describe --abbrev=0 --tags}
 BUILD := $(shell git rev-parse HEAD)
 
 # Use linker flags to provide version/build settings to the binary
