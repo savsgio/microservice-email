@@ -92,7 +92,7 @@ make run
 ```yaml
 ...
 rabbitmq:
-  host: rabbitmq_server
+  host: rabbitmq
   user: guest
   password: guest
   ...
