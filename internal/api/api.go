@@ -17,7 +17,7 @@ func New(port int) *Api {
 
 	api := &Api{
 		server: atreugo.New(atreugo.Config{
-			Addr:             "0.0.0.0" + strconv.Itoa(port),
+			Addr:             "0.0.0.0:" + strconv.Itoa(port),
 			GracefulShutdown: true,
 		}),
 	}
