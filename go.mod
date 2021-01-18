@@ -1,6 +1,6 @@
 module github.com/savsgio/microservice-email
 
-go 1.14
+go 1.12
 
 require (
 	github.com/savsgio/atreugo/v11 v11.6.0
